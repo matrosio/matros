@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var verbose bool
+var debug bool
 
 var MainCommand = &cobra.Command{
 	Use:   "matros",
@@ -18,7 +18,7 @@ func Execute() {
 	MainCommand.Version = "0.1.0"
 
 	// global flags
-	MainCommand.Flags().BoolVarP(&verbose, "verbose", "v", false, "verbose log output")
+	MainCommand.Flags().BoolVarP(&debug, "debug", "", false, "output detailed logs for debuggin")
 
 	// disable help command
 	MainCommand.SetHelpCommand(&cobra.Command{
