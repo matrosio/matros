@@ -25,6 +25,10 @@ devel:
 install:
 	@go get
 
+## run tests
+tests:
+	@go test -v ./...
+
 ## show help screen
 help:
 	printf "$(company) - $(project) v$(version)\n"
