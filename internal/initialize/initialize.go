@@ -2,6 +2,10 @@ package initialize
 
 var allowedinittypes = []string{"node", "server", "standalone"}
 
+type Initialization struct {
+	DataDirectory string
+}
+
 func Initialize(inittype string) {
 	if !checkarrayvalue(allowedinittypes, inittype) {
 		panic("wrong initialization type")

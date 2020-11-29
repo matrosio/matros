@@ -8,14 +8,15 @@ import (
 )
 
 var initializetype string
+var datadirectory string
 
 var InitCommand = &cobra.Command{
 	Use:   "init",
-	Short: "Initialize matros",
-	Long:  "Initialize matros",
+	Short: "initialize matros",
+	Long:  "initialize matros",
 	Args:  cobra.ArbitraryArgs,
 	Run: func(cmd *cobra.Command, args []string) {
-		initialize.Initialize("standalone")
+		initialize.Initialize("standalone", &datadirectory)
 		os.Exit(0)
 	},
 }
@@ -25,7 +26,7 @@ var InitServerCommand = &cobra.Command{
 	Short: "initialize server",
 	Long:  "initialize server",
 	Run: func(cmd *cobra.Command, args []string) {
-		initialize.Initialize("server")
+		initialize.Initialize("server", &datadirectory)
 		os.Exit(0)
 	},
 }
@@ -41,6 +42,16 @@ var InitNodeCommand = &cobra.Command{
 }
 
 func init() {
+	// set defaults
+	datadirectory = "./matros"
+
+	// flags
+	InitCommand.Flags().StringVarP(&datadirectory, "data-dir", "", "", "directory to store matros data store")
+	InitServerCommand.Flags().StringVarP(&datadirectory, "data-dir", "", "", "directory to store matros data store")
+	InitCommand.MarkFlagRequired("data-dir")
+	InitServerCommand.MarkFlagRequired("data-dir")
+
+	// commands
 	InitCommand.AddCommand(InitNodeCommand)
 	InitCommand.AddCommand(InitServerCommand)
 	MainCommand.AddCommand(InitCommand)
